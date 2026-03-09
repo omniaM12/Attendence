@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import re
+import openpyxl
 
 
 st.title("🔢 Simple ID Matcher")
@@ -52,4 +53,5 @@ if master_file and source_file:
         st.write(f'❌ Absent {abscence}')
         st.dataframe(df_master)
         
+
        

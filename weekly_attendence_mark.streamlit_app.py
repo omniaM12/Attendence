@@ -29,8 +29,8 @@ if master_file and source_file:
 
     if st.button("Mark Attendance"):
         
-        found_ids = df_source.astype(str).values.flatten()
-        found_ids = [str(x).strip() for x in raw_source if str(x).strip() not in ['nan', 'None', '']]
+        all_values = df_source.astype(str).values.flatten()
+        found_ids = [str(x).strip() for x in all_values if str(x).strip() not in ['nan', 'None', '']]
         # 4. Mark the Master File
         # Convert chosen ID column to string so they match correctly
         df_master[id_column] = df_master[id_column].astype(str).replace('nan', '')
@@ -51,6 +51,7 @@ if master_file and source_file:
         
 
        
+
 
 
 

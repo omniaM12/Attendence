@@ -28,7 +28,7 @@ if master_file and source_file:
         target_week = st.selectbox("Select the Week to mark:", weeks)
 
     if st.button("Mark Attendance"):
-        # 3. Get all numbers (3+ digits) from the Source file
+        
         all_source_data = df_source.astype(str).values.flatten()
         found_ids = []
         for text in all_source_data:
@@ -38,11 +38,11 @@ if master_file and source_file:
         # 4. Mark the Master File
         # Convert chosen ID column to string so they match correctly
         df_master[id_column] = df_master[id_column].astype(str).replace('nan', '')
-        id_pattern = '|'.join(found_ids)
+        id_pattern = '|'.join([f"{id}$" for id in found_ids])
         
 # 2. Check if the Master ID contains ANY of those short IDs
         if id_pattern:
-            mask = df_master[id_column].str.contains(id_pattern, na=False)
+            mask = df_master[id_column].str..contains(id_pattern, na=False)
             df_master.loc[mask, target_week] = "yes"
         
         df_master[target_week] = df_master[target_week].astype(str).str.strip().replace('nan', '')
@@ -56,4 +56,5 @@ if master_file and source_file:
         
 
        
+
 

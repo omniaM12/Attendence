@@ -30,7 +30,7 @@ if master_file and source_file:
     if st.button("Mark Attendance"):
         
         found_ids = df_source.astype(str).values.flatten()
-        found_ids = [str(x).strip() for x in found_ids if str(x).strip() != 'nan']
+        found_ids = [str(x).strip() for x in df_source.astype(str).values.flatten() if str(x).strip() != 'nan']
         
         # 4. Mark the Master File
         # Convert chosen ID column to string so they match correctly
@@ -39,7 +39,7 @@ if master_file and source_file:
         
 # 2. Check if the Master ID contains ANY of those short IDs
         if id_pattern:
-            mask = df_master[id_column].str.isin(id_pattern, na=False)
+            mask = df_master[id_column].astype(str).str.strip().str[-3:].isin(found_ids)
             df_master[target_week] = "" 
             df_master.loc[mask, target_week] = "yes"
         
@@ -54,6 +54,7 @@ if master_file and source_file:
         
 
        
+
 
 
 

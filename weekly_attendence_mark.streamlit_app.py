@@ -35,7 +35,7 @@ if master_file and source_file:
         # Convert chosen ID column to string so they match correctly
         df_master[id_column] = df_master[id_column].astype(str).replace('nan', '')
         if found_ids:
-        id_pattern = '|'.join([re.escape(id) + '$' for id in found_ids])
+            id_pattern = '|'.join([re.escape(id) + '$' for id in found_ids])
 # 2. Check if the Master ID contains ANY of those short IDs
         if id_pattern:
             mask = df_master[id_column].str.contains(id_pattern, na=False, regex=True)
@@ -51,6 +51,7 @@ if master_file and source_file:
         
 
        
+
 
 
 

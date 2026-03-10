@@ -30,20 +30,17 @@ if master_file and source_file:
     if st.button("Mark Attendance"):
         
         found_ids = df_source.astype(str).values.flatten()
-        found_ids = [str(x).strip() for x in df_source.astype(str).values.flatten() if str(x).strip() != 'nan']
-        
+        found_ids = [str(x).strip() for x in raw_source if str(x).strip() not in ['nan', 'None', '']]
         # 4. Mark the Master File
         # Convert chosen ID column to string so they match correctly
         df_master[id_column] = df_master[id_column].astype(str).replace('nan', '')
-        id_pattern = '|'.join([f"{id}$" for id in found_ids])
-        
+        if found_ids:
+        id_pattern = '|'.join([re.escape(id) + '$' for id in found_ids])
 # 2. Check if the Master ID contains ANY of those short IDs
         if id_pattern:
-            mask = df_master[id_column].astype(str).str.strip().str[-3:].isin(found_ids)
-            df_master[target_week] = "" 
+            mask = df_master[id_column].str.contains(id_pattern, na=False, regex=True)
             df_master.loc[mask, target_week] = "yes"
-        
-        df_master[target_week] = df_master[target_week].astype(str).str.strip().replace('nan', '')
+            df_master[target_week] = df_master[target_week].astype(str).str.strip().replace('nan', '')
         total= df_master[id_column].nunique()
         count= (df_master[target_week]=='yes').sum()
         abscence=total- count
@@ -54,6 +51,7 @@ if master_file and source_file:
         
 
        
+
 
 
 
